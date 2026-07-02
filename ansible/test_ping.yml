@@ -1,0 +1,8 @@
+---
+- name: Test connection to homelab vms
+  hosts: all
+  gather_facts: false
+
+  tasks:
+    - name: Run ansible ping module
+      ansible.builtin.ping:

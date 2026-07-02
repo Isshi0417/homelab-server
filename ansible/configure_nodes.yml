@@ -1,0 +1,22 @@
+---
+- name: Configure Homelab RHEL 10 Nodes
+  hosts: all
+  become: true
+
+  tasks:
+
+    - name: Upgrade all system packages # noqa package-latest
+      ansible.builtin.dnf:
+        name: "*"
+        state: latest
+        update_cache: true
+
+    - name: Install common utility packages
+      ansible.builtin.dnf:
+        name:
+          - vim
+          - tmux
+          - git
+          - bash-completion
+          - wget
+        state: present
