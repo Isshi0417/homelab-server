@@ -20,7 +20,7 @@ When I first booted RHEL 10 virtual machines, they crashed immediately and locke
 
 I updated the CPU configuration block in main.tf to pass the host CPU instruction directly to the VM:
 
-```
+```hcl
 cpu {
     mode = "host-passthrough"
 }
@@ -36,7 +36,7 @@ Traditional virtual machines use a legacy BIOS loader. However, modern RHEL 10 g
 
 To enable UEFI in my KVM VMs, I configured the domain firmware blocks:
 
-```
+```hcl
 nvram {
     file        = "/var/lib/libvirt/qemu/nvram/${each.key}_VARS.fd"
     template    = "/usr/share/edk2/ovmf/OVMF_VARS.fd"
