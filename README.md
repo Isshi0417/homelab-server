@@ -51,5 +51,6 @@ graph TD
 To make this project easily readable, the documentation has been divided into detailed technical chapters. Click any link below to dive into specific design decisions and troubleshooting logs:
 
 [Hypervisor Setup](docs/01_hypervisor_setup.md)
+
 [Terraform Provisioning](docs/02_terraform_provisioning.md)
 // Include links and their pages
