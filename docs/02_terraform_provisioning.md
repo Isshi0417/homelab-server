@@ -64,7 +64,7 @@ I bypassed the automatic attachment and configured a custom block:
 1. I created the cloud-init resource as a raw disk (.raw extension instead of .iso to bypass provider type validation).
 2. I attached it explicitly to the domain as a SCSI disk:
 
-```
+```hcl
 disk {
     volume_id   = libvirt_cloudinit_disk.commoninit[each.key].id
     scsi        = true
