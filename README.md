@@ -56,4 +56,6 @@ To make this project easily readable, the documentation has been divided into de
 
 [Ansible Automation](docs/03_ansible_automation.md)
 
+[Music Streaming Service](docs/04_music_streaming_service.md)
+
 // Include links and their pages
