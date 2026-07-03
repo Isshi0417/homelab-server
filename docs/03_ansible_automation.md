@@ -43,9 +43,9 @@ For security, I cannot commit plain-text credentials (like Red Hat Customer Port
 
 I created an external variables file vault.yml containing my sensitive data and encrypted it using **Ansible Vault:**
 
-    ```bash
+```bash
     ansible-vault encrypt vault.yml
-    ```
+```
 
 *   **Encryption Standard:** Ansible Vault uses AES-256 encryption.
 *   **Decryption:** The file is completely scrambled on disk. When playbooks are executed, `--ask-vault-pass` flag can be passed. Ansible prompts for the master password, decrypts the variables directly in memory, runs the tasks, and discards the plaintext variables immediately when finished.
@@ -64,9 +64,9 @@ Because I am already runnin ginside a Dev Container, trying to launch another co
 
 I disabled the nested execution environment flag using `--ee false`:
 
-    ```bash
+```bash
     ansible-navigator run configure_nodes.yml --mode stdout --ee false
-    ```
+```
 
 *   **--ee false:** Forces ansible-navigator to run playbooks directly inside the current Dev Container shell, using the pre-installed tools and collections, bypassing the nested container layer.
 *   **--mode stdout:** Standardizes the console output to log directly to the terminal line-by-line, matching the traditional ansible-playbook output format.
