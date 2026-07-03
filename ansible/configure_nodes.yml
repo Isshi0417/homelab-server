@@ -4,7 +4,6 @@
   become: true
 
   tasks:
-
     - name: Upgrade all system packages # noqa package-latest
       ansible.builtin.dnf:
         name: "*"
@@ -19,4 +18,27 @@
           - git
           - bash-completion
           - wget
+          - firewalld
+          - chrony
         state: present
+
+    - name: Ensure chronyd is running and synced
+      ansible.builtin.systemd:
+        name: chronyd
+        state: started
+        enabled: true
+
+    - name: Configure local host resolution mapping
+      ansible.builtin.blockinfile:
+        path: /etc/hosts
+        block: |
+          172.30.1.200 ansible-control.lab.local ansible-control
+          172.30.1.201 web-portfolio.lab.local web-portfolio
+          172.30.1.202 media-stream.lab.local media-stream
+        marker: "# {mark} ANSIBLE MANAGED HOMELAP MAP"
+
+    - name: Ensure firewalld is running
+      ansible.builtin.systemd:
+        name: firewalld
+        state: started
+        enabled: true
