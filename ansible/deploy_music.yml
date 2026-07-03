@@ -1,0 +1,105 @@
+---
+- name: Deploy Navidrome Music Streaming Server
+  hosts: media
+  become: true
+
+  tasks:
+    - name: Enable EPEL 10 repository
+      ansible.builtin.dnf:
+        name: https://dl.fedoraproject.org/pub/epel/epel-release-latest-10.noarch.rpm
+        state: present
+        disable_gpg_check: true
+
+    - name: Install rclone and fuse3
+      ansible.builtin.dnf:
+        name:
+          - rclone
+          - fuse3
+        state: present
+
+    - name: Create rclone config directory
+      ansible.builtin.file:
+        path: /root/.config/rclone
+        state: directory
+        mode: "0700"
+
+    - name: Copy rclone configuration
+      ansible.builtin.copy:
+        src: ./rclone.conf
+        dest: /root/.config/rclone/rclone.conf
+        mode: "0600"
+
+    - name: Create mount directory
+      ansible.builtin.file:
+        path: /mnt/gdrive
+        state: directory
+        mode: "0755"
+
+    - name: Allow SELinux to access FUSE mounts
+      ansible.posix.seboolean:
+        name: virt_use_fusefs
+        state: true
+        persistent: true
+
+    - name: Create rclone-mount systemd service
+      ansible.builtin.copy:
+        dest: /etc/systemd/system/rclone-mount.service
+        mode: "0644"
+        content: |
+          [Unit]
+          Description=Rclone Google Drive mount
+          After=network-online.target
+          Wants=network-online.target
+
+          [Service]
+          Type=simple
+          ExecStart=/usr/bin/rclone mount gdrive: /mnt/gdrive \
+            --config /root/.config/rclone/rclone.conf \
+            --allow-other \
+            --dir-cache-time 1000h \
+            --vfs-cache-mode full \
+            --vfs-cache-max-age 24h
+          ExecStop=/usr/bin/fusermount3 -u /mnt/gdrive
+          Restart=on-failure
+          User=root
+
+          [Install]
+          WantedBy=multi-user.target
+
+    - name: Start and enable rclone-mount service
+      ansible.builtin.systemd:
+        name: rclone-mount
+        state: started
+        enabled: true
+        daemon_reload: true
+
+    - name: Create navidrome data directory
+      ansible.builtin.file:
+        path: /var/lib/navidrome
+        state: directory
+        owner: "1000"
+        group: "1000"
+        mode: "0755"
+
+    - name: Run Navidrome container via Podman
+      containers.podman.podman_container:
+        name: navidrome
+        image: docker.io/deluan/navidrome:latest
+        state: started
+        recreate: true
+        restart_policy: always
+        ports:
+          - "4533:4533"
+        volume:
+          - /mnt/gdrive/Music:/music:ro,z
+          - /var/lib/navidrome:/data:z
+        env:
+          ND_LOGLEVEL: info
+          ND_SCANSCHEDULE: "@every 1h"
+
+    - name: Open port 4533 in firewall
+      ansible.posix.firewalld:
+        port: 4533/tcp
+        state: enabled
+        permanent: true
+        immediate: true
