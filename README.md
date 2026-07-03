@@ -53,4 +53,7 @@ To make this project easily readable, the documentation has been divided into de
 [Hypervisor Setup](docs/01_hypervisor_setup.md)
 
 [Terraform Provisioning](docs/02_terraform_provisioning.md)
+
+[Ansible Automation](docs/03_ansible_automation.md)
+
 // Include links and their pages
