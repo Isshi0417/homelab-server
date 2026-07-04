@@ -2,7 +2,7 @@
 
 [← Back to Main README](../README.md)
 
-This section covers the deployment of Navidrome music server, mounting cloud storage via Rclone FUSE, container permission fixes, and syncing Spotify music safely.
+This section covers the deployment of Navidrome music server, mounting cloud storage via Rclone FUSE, container permission fixes, and secure WAN routing using Cloudflare Tunnels.
 
 ---
 
@@ -67,3 +67,35 @@ git add .
 git commit -m " Complete deploying Navidrome on media-stream server as  a service"
 git push -u origin main
 ```
+
+## 4. WAN Routing: Secure Access via Cloudlfare Tunnels
+
+To allow remote streaming (e.g., from Singapore) without opening security holes in my home router, I deployed a Cloudflare Tunnel.
+
+```mermaid
+sequenceDiagram
+    autonumber
+    actor Client as Phone / Client (Singapore)
+    participant CF as Cloudflare Edge
+    participant VM as media-stream VM (172.30.1.202)
+    participant Nav as Navidrome Container
+
+    VM->>CF: Outbound Tunnel connection established (cloudflared)
+    Client->>CF: Access https://music.shooey.xyz
+    CF->>CF: Verify SSL & security checks
+    CF->>VM: Route traffic down the open tunnel
+    VM->>Nav: Forward request to http://localhost:4533
+```
+
+### Key Engineering Decisions:
+
+1. **Zero Inbound Ports:** No port forwarding is configured on the home router. The VM opens an outbound-only connection (cloudflared), making the server completely invisible to public internet port scanners.
+2. **Ansible Automation (deploy_tunnel.yml):** I wrote a playbook to install cloudflared via RPM and register the system service.
+3. **Ansible Idempotency (creates):** Instead of using a separate stat check, I utilized the creates flag to ensure the registration command only runs if the service file doesn't exist:
+```bash
+- name: Install cloudflared systemd service
+  ansible.builtin.command:
+    cmd: "cloudflared service install {{ vault_cloudflare_token }}"
+    creates: /etc/systemd/system/cloudflared.service
+```
+4. **Cloudflare Published Application Routing:** I configured Cloudflare to route the public subdomain music.shooey.xyz (HTTP) directoly to localhost:4533 via the tunnel.
