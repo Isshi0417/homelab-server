@@ -1,0 +1,30 @@
+---
+- name: Deploy Cloudflare tunnel on media VM
+  hosts: media
+  become: true
+  vars_files:
+    - vault.yml
+
+  tasks:
+    - name: Install cloudflared via official RPM
+      ansible.builtin.dnf:
+        name: "https://github.com/cloudflare/cloudflared/releases/latest/download/cloudflared-linux-x86_64.rpm"
+        state: present
+        disable_gpg_check: true
+
+    - name: Install cloudflared systemd service
+      ansible.builtin.command:
+        cmd: "cloudflared service install {{ vault_cloudflare_token }}"
+        creates: /etc/systemd/system/cloudflared.service
+      notify: Reload systemd
+
+    - name: Ensure cloudflared service is enabled and started
+      ansible.builtin.systemd:
+        name: cloudflared
+        state: started
+        enabled: true
+
+  handlers:
+    - name: Reload systemd
+      ansible.builtin.systemd:
+        daemon_reload: true
