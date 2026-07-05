@@ -1,0 +1,48 @@
+---
+- name: Deploy homelab portal website on the web VM
+  hosts: web
+  become: true
+
+  tasks:
+    - name: Install Nginx web server
+      ansible.builtin.dnf:
+        name: nginx
+        state: present
+
+    - name: Allow HTTP traffic in firewalld
+      ansible.posix.firewalld:
+        service: http
+        permanent: true
+        state: enabled
+
+    - name: Start and enabled Nginx service
+      ansible.builtin.systemd:
+        name: nginx
+        state: started
+        enabled: true
+
+    - name: Remove default Nginx welcome page
+      ansible.builtin.file:
+        path: /usr/share/nginx/html/index.html
+        state: absent
+
+    - name: Deploy portal website files
+      ansible.builtin.copy:
+        src: ../website/
+        dest: /usr/share/nginx/html/
+        owner: root
+        group: root
+        mode: "0644"
+        directory_mode: "0755"
+      notify: Restore SELinux contexts
+
+  handlers:
+    - name: Reload firewalld
+      ansible.builtin.systemd:
+        name: firewalld
+        state: reloaded
+
+    - name: Restore SELinux contexts
+      ansible.builtin.command:
+        cmd: restorecon -Rv /usr/share/nginx/html
+      changed_when: false

@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rapture Homelab Portal</title>
+  <link rel="stylesheet" href="style.css">
+  <!-- Importing Art Deco fonts (Cinzel and Montserrat) -->
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <!-- Ambient underwater bioluminescent glow blobs -->
+  <div class="glow-blob blob-cyan"></div>
+  <div class="glow-blob blob-gold"></div>
+
+  <!-- Floating bubble animations for underwater Rapture vibe -->
+  <div class="bubbles">
+    <div class="bubble"></div>
+    <div class="bubble"></div>
+    <div class="bubble"></div>
+    <div class="bubble"></div>
+    <div class="bubble"></div>
+  </div>
+
+  <div class="container art-deco-frame">
+    <header class="main-header">
+      <div class="deco-divider-top"></div>
+      <h1>Rapture</h1>
+      <p class="subtitle">Homelab Control Center</p>
+      <div class="deco-divider-bottom"></div>
+    </header>
+
+    <main class="dashboard-grid">
+
+      <!-- Rapture Radio Player Widget -->
+      <section class="card-section radio-section">
+        <h2>Rapture Broadcast System</h2>
+        <div class="card radio-card">
+          <div class="radio-controls">
+            <!-- Vintage Toggle Switch -->
+            <button id="radio-toggle" class="radio-switch">OFF</button>
+            <div class="radio-info">
+              <span class="frequency">88.4 AM</span>
+              <p class="now-playing">TUNED: Rapture Jazz Network</p>
+            </div>
+            <!-- Volume Dial/Slider -->
+            <div class="volume-container">
+              <label for="volume">VOL</label>
+              <input type="range" id="volume" min="0" max="1" step="0.1" value="0.5">
+            </div>
+          </div>
+          <!-- Hidden Audio Element (Hotlinking a public domain 1930s Jazz Track) -->
+          <audio id="radio-audio" crossorigin="anonymous" loop>
+            <source src="https://upload.wikimedia.org/wikipedia/commons/d/d1/Buddy_Bolden_Band_-_The_Humbug.ogg" type="audio/ogg">
+            <source src="https://archive.org/download/classic_jazz_recordings/AlBowlly-MidnightTheStarsAndYou1934.mp3" type="audio/mp3">
+          </audio>
+        </div>
+      </section>
+      
+      <!-- Card Section 1: Homelab Nodes -->
+      <section class="card-section">
+        <h2>System Nodes</h2>
+        <div class="grid">
+          
+          <div class="card">
+            <div class="card-header">
+              <span id="status-control" class="status-indicator online"></span>
+              <h3>ansible-control</h3>
+            </div>
+            <p class="ip">172.30.1.200</p>
+            <p class="role">Automation AAP & Engine</p>
+          </div>
+
+          <div class="card">
+            <div class="card-header">
+              <span id="status-web" class="status-indicator online"></span>
+              <h3>web-portfolio</h3>
+            </div>
+            <p class="ip">172.30.1.201</p>
+            <p class="role">Nginx Web Server Host</p>
+          </div>
+
+          <div class="card">
+            <div class="card-header">
+              <span id="status-media" class="status-indicator online"></span>
+              <h3>media-stream</h3>
+            </div>
+            <p class="ip">172.30.1.202</p>
+            <p class="role">Navidrome & Rclone FUSE</p>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- Card Section 2: Services & Applications -->
+      <section class="card-section">
+        <h2>Applications & Services</h2>
+        <div class="grid">
+          
+          <!-- Navidrome Link -->
+          <a href="https://music.shooey.xyz" target="_blank" class="card link-card">
+            <div class="card-header">
+              <span class="status-indicator online"></span>
+              <h3>Navidrome Music</h3>
+            </div>
+            <p class="desc">Personal audio streaming server synced with Google Drive.</p>
+            <span class="action-btn">Launch Service →</span>
+          </a>
+
+          <!-- VM Cockpit Link -->
+          <a href="https://172.30.1.202:9090" target="_blank" class="card link-card">
+            <div class="card-header">
+              <span class="status-indicator online"></span>
+              <h3>Cockpit VM Admin</h3>
+            </div>
+            <p class="desc">RHEL VM management console for media nodes.</p>
+            <span class="action-btn">Manage Node →</span>
+          </a>
+
+          <!-- Hypervisor Link -->
+          <a href="https://172.30.1.10:9090" target="_blank" class="card link-card">
+            <div class="card-header">
+              <span class="status-indicator online"></span>
+              <h3>Hypervisor Host</h3>
+            </div>
+            <p class="desc">Bare-metal mini PC hypervisor panel (RHEL 10 / KVM).</p>
+            <span class="action-btn">Open Host →</span>
+          </a>
+
+        </div>
+      </section>
+
+    </main>
+
+    <footer class="main-footer">
+      <p class="ryan-quote">"A man chooses, a slave obeys."</p>
+      <p class="footer-sub">Sho Ishida | homelab-server cluster | Protected by Cloudflare</p>
+    </footer>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

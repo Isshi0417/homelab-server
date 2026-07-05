@@ -1,0 +1,520 @@
+/* Rapture Dark - Decayed BioShock / Post-Civil War Edition */
+:root {
+  /* Grungy, Murkier Base Colors */
+  --bg-dark: rgb(8, 14, 13);          /* Pitch black ocean depth */
+  --card-bg: rgba(11, 20, 19, 0.92);   /* Darkened, higher opacity glass panels */
+  --card-hover: rgba(16, 28, 27, 0.98);
+  --border-color: rgba(51, 224, 208, 0.15);
+  
+  /* Corroded, Weathered Accents */
+  --cyan-glow: rgb(51, 224, 208);       /* Restored bright cyan glow */
+  --gold-accent: rgb(212, 175, 55);     /* Restored bright Art Deco gold */
+  --rust-accent: rgb(186, 84, 48);      /* Richer copper/rust accent */
+  --text-main: rgb(230, 255, 252);      /* Main text: Crisp pale glowing cyan-white */
+  --text-muted: rgb(148, 173, 162);     /* Lightened algae green-gray for clear contrast */
+  
+  --green-glow: rgb(52, 133, 96);
+  --red-glow: rgb(184, 74, 74);
+}
+
+/* Core Settings */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: var(--bg-dark);
+  background-image: url('bg.jpg');
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  color: var(--text-main);
+  font-family: 'Montserrat', sans-serif;
+  min-height: 100vh;
+  overflow-x: hidden;
+  position: relative;
+  /* Custom gold Art Deco pointer cursor */
+  cursor: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'><polygon points='0,0 16,6 9,9 6,16' fill='%23997a3d' stroke='%23080e0d' stroke-width='1.5'/></svg>"), auto;
+}
+
+/* Custom glowing cyan pointer cursor on hover elements */
+a, button, input[type="range"], .link-card {
+  cursor: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'><polygon points='0,0 16,6 9,9 6,16' fill='%2333e0d0' stroke='%23080e0d' stroke-width='1.5'/></svg>"), pointer !important;
+}
+
+/* CRT Scanline Overlay Effect layered on top of background image */
+body::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: 
+    linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.35) 50%),
+    linear-gradient(90deg, rgba(255, 0, 0, 0.03), rgba(0, 255, 0, 0.01), rgba(0, 0, 255, 0.03));
+  background-size: 100% 4px, 6px 100%;
+  pointer-events: none;
+  z-index: 8; /* Moved behind the dashboard container */
+}
+
+/* Heavy vignette shadow for deep-sea bathysphere feeling */
+body::after {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  box-shadow: inset 0 0 140px rgba(0, 0, 0, 0.95);
+  pointer-events: none;
+  z-index: 9; /* Moved behind the dashboard container */
+}
+
+/* Ambient Bioluminescent Background Blobs (Dimmed) */
+.glow-blob {
+  position: absolute;
+  width: 600px;
+  height: 600px;
+  border-radius: 50%;
+  filter: blur(160px);
+  opacity: 0.08;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.blob-cyan {
+  background-color: var(--cyan-glow);
+  top: -100px;
+  right: -100px;
+}
+
+.blob-gold {
+  background-color: var(--rust-accent);
+  bottom: -200px;
+  left: -200px;
+}
+
+/* Slower Murky Floating Bubbles */
+.bubbles {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.bubble {
+  position: absolute;
+  bottom: -30px;
+  background-color: rgba(40, 180, 168, 0.06);
+  border: 1px solid rgba(40, 180, 168, 0.15);
+  border-radius: 50%;
+  animation: floatUp 25s infinite linear;
+}
+
+.bubble:nth-child(1) { left: 10%; width: 22px; height: 22px; animation-duration: 22s; animation-delay: 2s; }
+.bubble:nth-child(2) { left: 25%; width: 10px; height: 10px; animation-duration: 35s; animation-delay: 5s; }
+.bubble:nth-child(3) { left: 50%; width: 35px; height: 35px; animation-duration: 28s; animation-delay: 0s; }
+.bubble:nth-child(4) { left: 70%; width: 14px; height: 14px; animation-duration: 40s; animation-delay: 8s; }
+.bubble:nth-child(5) { left: 85%; width: 26px; height: 26px; animation-duration: 30s; animation-delay: 4s; }
+
+@keyframes floatUp {
+  0% { transform: translateY(0) translateX(0) scale(0.8); opacity: 0; }
+  10% { opacity: 0.5; }
+  90% { opacity: 0.5; }
+  100% { transform: translateY(-110vh) translateX(80px) scale(1.2); opacity: 0; }
+}
+
+/* Container & Tarnished Art Deco Outer Border Frame */
+.container {
+  max-width: 1100px;
+  margin: 20px auto; /* Reduced from 50px auto */
+  padding: 30px;     /* Reduced from 40px */
+  position: relative;
+  z-index: 10; /* Brought to the absolute front so text is clean and un-distorted */
+  background: rgba(10, 18, 17, 0.9);
+  border-radius: 4px; /* Hard square edges */
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.8);
+}
+
+.art-deco-frame {
+  border: 2px solid var(--gold-accent);
+  outline: 6px double var(--rust-accent); /* Double rust frame outline */
+  outline-offset: -16px;
+}
+
+/* Header with Flickering Power Effect */
+.main-header {
+  text-align: center;
+  margin-bottom: 25px; /* Reduced from 50px */
+  padding: 10px 0;
+}
+
+.deco-divider-top, .deco-divider-bottom {
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--rust-accent) 20%, var(--gold-accent) 50%, var(--rust-accent) 80%, transparent);
+  width: 70%;
+  margin: 0 auto;
+}
+
+.deco-divider-top { margin-bottom: 15px; }
+.deco-divider-bottom { margin-top: 15px; }
+
+.main-header h1 {
+  font-family: 'Cinzel', serif;
+  font-size: 4.5rem;
+  font-weight: 900;
+  letter-spacing: 12px;
+  text-transform: uppercase;
+  color: var(--text-main);
+  background: linear-gradient(135deg, var(--gold-accent), var(--text-main), var(--rust-accent));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: lightFlicker 6s infinite;
+}
+
+.main-header .subtitle {
+  color: var(--cyan-glow);
+  font-family: 'Cinzel', serif;
+  font-size: 0.95rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 6px;
+  margin-top: 8px;
+  animation: glowPulse 4s infinite alternate;
+}
+
+/* Dashboard Sections */
+.card-section {
+  margin-bottom: 20px; /* Reduced from 40px */
+}
+
+.card-section h2 {
+  font-family: 'Cinzel', serif;
+  font-size: 1.3rem;
+  font-weight: 700;
+  margin-bottom: 25px;
+  color: var(--gold-accent);
+  border-bottom: 1px solid rgba(197, 160, 89, 0.2);
+  padding-bottom: 12px;
+  letter-spacing: 3px;
+  text-shadow: 0 0 10px rgba(153, 122, 61, 0.2);
+}
+
+/* Grid Layout */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 24px;
+}
+
+/* Decayed Glassmorphic Cards */
+.card {
+  background: var(--card-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 4px; /* Harder corners for Art Deco geometric style */
+  padding: 24px;
+  backdrop-filter: blur(24px); /* Increased blur to strongly diffuse the detailed background */
+  -webkit-backdrop-filter: blur(24px);
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6), inset 0 0 20px rgba(0, 0, 0, 0.4);
+}
+
+.card::before {
+  content: '';
+  position: absolute;
+  top: 6px;
+  left: 6px;
+  right: 6px;
+  bottom: 6px;
+  border: 1px solid rgba(153, 122, 61, 0.05);
+  pointer-events: none;
+}
+
+.card-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.card h3 {
+  font-family: 'Cinzel', serif;
+  font-size: 1.2rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+
+.card p {
+  font-size: 0.88rem;
+  color: var(--text-muted);
+  line-height: 1.6;
+}
+
+.card .ip {
+  font-family: monospace;
+  font-size: 1.05rem;
+  color: var(--cyan-glow);
+  margin-bottom: 6px;
+  text-shadow: 0 0 8px rgba(40, 180, 168, 0.2);
+}
+
+/* Interactive link cards */
+.link-card {
+  text-decoration: none;
+  color: inherit;
+  cursor: pointer;
+}
+
+.link-card:hover {
+  background: var(--card-hover);
+  border-color: var(--border-hover);
+  transform: scale(1.01);
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6), 0 0 15px rgba(153, 122, 61, 0.1);
+}
+
+.action-btn {
+  margin-top: auto;
+  padding-top: 16px;
+  font-family: 'Cinzel', serif;
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--gold-accent);
+  letter-spacing: 2px;
+  transition: all 0.3s ease;
+}
+
+.link-card:hover .action-btn {
+  transform: translateX(6px);
+  color: var(--cyan-glow);
+  text-shadow: 0 0 8px rgba(40, 180, 168, 0.4);
+}
+
+/* Pulsing Status Indicators (Flickering) */
+.status-indicator {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  display: inline-block;
+  position: relative;
+}
+
+.status-indicator::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  animation: pulse 3s infinite;
+}
+
+.online {
+  background-color: var(--cyan-glow);
+  animation: neonFlicker 8s infinite alternate;
+}
+
+.online::after {
+  background-color: var(--cyan-glow);
+}
+
+@keyframes pulse {
+  0% { transform: scale(1); opacity: 0.6; }
+  100% { transform: scale(3.5); opacity: 0; }
+}
+
+/* Rapture Radio Player (Decayed Panel look) */
+.radio-card {
+  border: 1px double var(--gold-accent) !important;
+  outline: 1px solid var(--rust-accent);
+  outline-offset: -8px;
+  background: rgba(10, 16, 15, 0.95) !important;
+  box-shadow: inset 0 0 30px rgba(0,0,0,0.8), 0 10px 30px rgba(0,0,0,0.5) !important;
+}
+
+.radio-controls {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 25px;
+}
+
+/* Rusted Brass Toggle Knob */
+.radio-switch {
+  font-family: 'Cinzel', serif;
+  font-weight: 700;
+  font-size: 1rem;
+  background: rgb(8, 12, 11);
+  color: var(--text-muted);
+  border: 2px solid var(--gold-accent);
+  width: 75px;
+  height: 75px;
+  border-radius: 50%;
+  cursor: pointer;
+  box-shadow: inset 0 0 15px rgba(0,0,0,0.9), 0 5px 15px rgba(0,0,0,0.4);
+  transition: all 0.4s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.radio-switch::before {
+  content: '';
+  position: absolute;
+  width: 4px;
+  height: 20px;
+  background: var(--rust-accent);
+  top: 6px;
+  left: 50%;
+  transform: translateX(-50%);
+  border-radius: 2px;
+  transition: transform 0.4s ease;
+}
+
+.radio-switch.active {
+  color: var(--gold-accent);
+  border-color: var(--rust-accent);
+  box-shadow: 0 0 20px rgba(168, 70, 39, 0.3), inset 0 0 5px rgba(168, 70, 39, 0.2);
+  text-shadow: 0 0 8px var(--gold-accent);
+}
+
+.radio-switch.active::before {
+  transform: translateX(-50%) rotate(90deg); /* Turn dial 90 degrees when ON */
+}
+
+.radio-info {
+  flex-grow: 1;
+}
+
+.radio-info .frequency {
+  font-family: 'Cinzel', serif;
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: var(--gold-accent);
+  letter-spacing: 2px;
+  animation: neonFlicker 5s infinite;
+}
+
+.radio-info .now-playing {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  font-style: italic;
+  margin-top: 6px;
+  letter-spacing: 1px;
+}
+
+/* Volume Dial/Slider */
+.volume-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+}
+
+.volume-container label {
+  font-family: 'Cinzel', serif;
+  font-size: 0.75rem;
+  color: var(--gold-accent);
+  letter-spacing: 1px;
+}
+
+#volume {
+  -webkit-appearance: none;
+  width: 80px;
+  background: var(--bg-dark);
+  height: 5px;
+  border-radius: 1px;
+  outline: none;
+  border: 1px solid rgba(197, 160, 89, 0.15);
+}
+
+#volume::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 14px;
+  height: 14px;
+  border-radius: 2px; /* Square slider thumb for vintage hardware */
+  background: var(--gold-accent);
+  border: 1px solid var(--rust-accent);
+  cursor: pointer;
+  box-shadow: 0 0 4px var(--gold-accent);
+}
+
+/* Footer & Andrew Ryan Quote */
+.main-footer {
+  text-align: center;
+  margin-top: 30px; /* Reduced from 60px */
+  padding-top: 20px; /* Reduced from 30px */
+  border-top: 1px solid rgba(153, 122, 61, 0.15);
+}
+
+.ryan-quote {
+  font-family: 'Cinzel', serif;
+  font-size: 1.35rem;
+  font-weight: 400;
+  letter-spacing: 3px;
+  color: var(--gold-accent);
+  margin-bottom: 12px;
+  text-shadow: 0 0 12px rgba(153, 122, 61, 0.2);
+  animation: quoteGlow 7s infinite alternate;
+}
+
+.footer-sub {
+  color: var(--text-muted);
+  font-size: 0.78rem;
+  font-weight: 300;
+  letter-spacing: 1px;
+}
+
+/* Animations for Decaying Power Grid */
+@keyframes lightFlicker {
+  0%, 19.999%, 22%, 62.999%, 64%, 64.999%, 70%, 100% {
+    opacity: 0.98;
+    filter: drop-shadow(0 0 20px rgba(197, 160, 89, 0.15));
+  }
+  20%, 21.999%, 63%, 63.999%, 65%, 69.999% {
+    opacity: 0.45;
+    filter: none;
+  }
+}
+
+@keyframes neonFlicker {
+  0%, 19.999%, 21%, 23%, 25%, 54.999%, 56%, 100% {
+    opacity: 0.9;
+    text-shadow: 0 0 8px var(--cyan-glow);
+  }
+  20%, 22.999%, 24%, 55%, 55.999% {
+    opacity: 0.3;
+    text-shadow: none;
+  }
+}
+
+@keyframes glowPulse {
+  0% { text-shadow: 0 0 5px var(--cyan-glow); }
+  100% { text-shadow: 0 0 15px var(--cyan-glow); }
+}
+
+@keyframes quoteGlow {
+  0% { text-shadow: 0 0 5px rgba(153, 122, 61, 0.1); }
+  100% { text-shadow: 0 0 15px rgba(153, 122, 61, 0.3); }
+}
+
+/* Offline status indicator (red) */
+.offline {
+  background-color: var(--red-glow) !important;
+}
+
+.offline::after {
+  background-color: var(--red-glow) !important;
+}
+
