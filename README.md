@@ -58,4 +58,6 @@ To make this project easily readable, the documentation has been divided into de
 
 [Music Streaming Service](docs/04_music_streaming_service.md)
 
+[Homelab Portal Website](docs/05_homelab_portal_website.md)
+
 // Include links and their pages
