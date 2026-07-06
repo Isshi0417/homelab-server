@@ -1,5 +1,7 @@
 # Homelab Control Panel (Rapture Landing Page)
 
+[Back to main README](../README.md)
+
 The Homelab Control Panel is a highly customized BioShock-themed webpage hosted on the web-portfolio VM (172.30.1.201) and served publicly via Cloudflare Tunnels. This page combined custom Art Deco auesthetics with dynamic backend systems monitoring and synthetic sound effects.
 
 ---
