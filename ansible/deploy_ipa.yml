@@ -1,0 +1,66 @@
+---
+- name: Deploy Central FreeIPA Server
+  hosts: ipa
+  become: true
+
+  vars_files:
+    - vault.yml
+
+  tasks:
+    - name: Set fully qualified domain name
+      ansible.builtin.hostname:
+        name: ipa.shooey.local
+
+    - name: Ensure local FQDN resolves in /etc/hosts
+      ansible.builtin.lineinfile:
+        path: /etc/hosts
+        line: "172.30.1.100 ipa.shooey.local ipa"
+        state: present
+
+    - name: Install FreeIPA server and firewall dependencies
+      ansible.builtin.dnf:
+        name:
+          - firewalld
+          - python3-firewall
+          - freeipa-server
+          - freeipa-server-dns
+          - bind-dyndb-ldap
+        state: present
+
+    - name: Ensure firewalld is running and enabled
+      ansible.builtin.systemd:
+        name: firewalld
+        state: started
+        enabled: true
+
+    - name: Allow FreeIPA services in firewalld
+      ansible.posix.firewalld:
+        service: "{{ item }}"
+        permanent: true
+        immediate: true
+        state: enabled
+      loop:
+        - freeipa-ldap
+        - freeipa-ldaps
+        - dns
+        - kerberos
+        - kpasswd
+
+    - name: Check if FreeIPA is already installed
+      ansible.builtin.stat:
+        path: /etc/ipa/default.conf
+      register: ipa_installed
+
+    - name: Run FreeIPA unattended installer
+      ansible.builtin.command:
+        cmd: >
+          ipa-server-install
+          --unattended
+          --realm=SHOOEY.LOCAL
+          --ds-password="{{ vault_ipa_ds_password }}"
+          --admin-password="{{ vault_ipa_admin_password }}"
+          --setup-dns
+          --forwarder=1.1.1.1
+          --forwarder=8.8.8.8
+          --auto-reverse
+      when: not ipa_installed.stat.exists

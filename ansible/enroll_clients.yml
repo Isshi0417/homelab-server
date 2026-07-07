@@ -1,0 +1,32 @@
+---
+- name: Enroll client VMs into FreeIPA realm
+  hosts: control, web, media
+  become: true
+
+  vars_files:
+    - vault.yml
+
+  tasks:
+    - name: Install FreeIPA client packages
+      ansible.builtin.dnf:
+        name: freeipa-client
+        state: present
+
+    - name: Check if already enrolled in FreeIPA
+      ansible.builtin.stat:
+        path: /etc/ipa/default.conf
+      register: ipa_client_config
+
+    - name: Run FreeIPA client enrollment
+      ansible.builtin.command:
+        cmd: >
+          ipa-client-install
+          --unattended
+          --domain=shooey.local
+          --realm=SHOOEY.LOCAL
+          --server=ipa.shooey.local
+          --principal=admin
+          --password="{{ vault_ipa_admin_password }}"
+          --mkhomedir
+      when: not ipa_client_config.stat.exists
+      changed_when: true
