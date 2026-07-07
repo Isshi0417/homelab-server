@@ -18,12 +18,24 @@ jobs:
           apt-get update
           apt-get install -y ansible
 
+      - name: Verify SSH key format
+        run: |
+          echo "File size: $(wc -c < ~/.ssh/id_ed25519) bytes"
+          echo "First line: $(head -n 1 ~/.ssh/id_ed25519)"
+          echo "Last line: $(tail -n 1 ~/.ssh/id_ed25519)"
+
       - name: Set up SSH private key
         run: |
           mkdir -p ~/.ssh
           echo "${{ secrets.SSH_PRIVATE_KEY }}" | base64 -d > ~/.ssh/id_ed25519
           chmod 600 ~/.ssh/id_ed25519
           echo -e "Host *\n\tStrictHostKeyChecking no\n" > ~/.ssh/config
+
+      - name: Verify SSH Key Format
+        run: |
+          echo "File size: $(wc -c < ~/.ssh/id_ed25519) bytes"
+          echo "First line: $(head -n 1 ~/.ssh/id_ed25519)"
+          echo "Last line: $(tail -n 1 ~/.ssh/id_ed25519)"
 
       - name: Set up vault password
         run: |
