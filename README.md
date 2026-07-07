@@ -60,4 +60,6 @@ To make this project easily readable, the documentation has been divided into de
 
 [Homelab Portal Website](docs/05_homelab_portal_website.md)
 
+[Centralized Identity Management](docs/06_centralized_identity_management.md)
+
 // Include links and their pages
