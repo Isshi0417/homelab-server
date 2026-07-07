@@ -1,0 +1,33 @@
+name: Homelab Deployment Pipeline
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy-dns:
+    runs-on: self-hosted
+    container:
+      image: docker.io/willhallonline/ansible:latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up SSH private key
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_ed25519
+          chmod 600 ~/.ssh/id_ed25519
+          echo -e "Host *\n\tStrictHostKeyChecking no\n" > ~/.ssh/config
+
+      - name: Set up vault password
+        run: |
+          echo "${{ secrets.VAULT_PASSWORD }}" > ansible/vault_pass
+          chmod 600 ansible/vault_pass
+
+      - name: Execute DNS playbook
+        run: |
+          cd ansible
+          ansible-navigator run configure_dns.yml --mode stdout --ee false --vault-password-file vault_pass
