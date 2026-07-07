@@ -19,6 +19,8 @@ jobs:
           apt-get install -y ansible
 
       - name: Set up SSH private key
+        env:
+          SSH_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
         run: |
           mkdir -p ~/.ssh
           echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_ed25519
