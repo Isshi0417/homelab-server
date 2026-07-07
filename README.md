@@ -62,4 +62,6 @@ To make this project easily readable, the documentation has been divided into de
 
 [Centralized Identity Management](docs/06_centralized_identity_management.md)
 
+[Private Git Server and GitOps Automation](docs/07_private_git_server_and_gitops.md)
+
 // Include links and their pages
