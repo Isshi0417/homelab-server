@@ -16,7 +16,7 @@ jobs:
       - name: Install ansible
         run: |
           apt-get update
-          apt-get install -y ansible-core
+          apt-get install -y ansible
 
       - name: Set up SSH private key
         run: |
