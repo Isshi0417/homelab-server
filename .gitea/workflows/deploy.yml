@@ -16,13 +16,8 @@ jobs:
       - name: Install ansible
         run: |
           apt-get update
-          apt-get install -y ansible
-
-      - name: Verify SSH key format
-        run: |
-          echo "File size: $(wc -c < ~/.ssh/id_ed25519) bytes"
-          echo "First line: $(head -n 1 ~/.ssh/id_ed25519)"
-          echo "Last line: $(tail -n 1 ~/.ssh/id_ed25519)"
+          apt-get install -y python3-pip python3-setuptools
+          pip3 install ansible
 
       - name: Set up SSH private key
         run: |
