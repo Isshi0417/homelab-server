@@ -1,0 +1,76 @@
+---
+- name: Deploy Gitea Act via Podman
+  hosts: control
+  become: true
+
+  vars_files:
+    - vault.yml
+
+  vars:
+    gitea_token: "{{ vault_gitea_runner_token }}"
+
+  tasks:
+    - name: Create Act Runner data directory
+      ansible.builtin.file:
+        path: /var/lib/gitea_runner
+        state: directory
+        owner: root
+        group: root
+        mode: "0755"
+
+    - name: Ensure Podman API socket is running and enabled
+      ansible.builtin.systemd:
+        name: podman.socket
+        state: started
+        enabled: true
+
+    - name: Run Act runner container
+      containers.podman.podman_container:
+        name: gitea-runner
+        image: docker.io/gitea/act_runner:latest
+        state: started
+        restart_policy: always
+        user: "0"
+        security_opt:
+          - "label=disable"
+        volumes:
+          - /var/run/podman/podman.sock:/var/run/docker.sock:z
+          - /var/lib/gitea_runner:/data:z
+        env:
+          GITEA_INSTANCE_URL: "http://172.30.1.200:3000"
+          GITEA_RUNNER_REGISTRATION_TOKEN: "{{ gitea_token }}"
+          GITEA_RUNNER_NAME: "ansible-control-runner"
+          GITEA_RUNNER_LABELS: "ubuntu-latest:docker://node:16-bullseye,self-hosted:docker://node:16-bullseye"
+
+    - name: Deploy Gitea runner systemd service file
+      ansible.builtin.copy:
+        content: |
+          [Unit]
+          Description=Gitea Act Runner Container
+          After=network-online.target gitea-container.service podman.socket
+
+          [Service]
+          Type=simple
+          ExecStart=/usr/bin/podman start -a gitea-runner
+          ExecStop=/usr/bin/podman stop -t 10 gitea-runner
+          Restart=always
+
+          [Install]
+          WantedBy=multi-user.target
+        dest: /etc/systemd/system/gitea-runner-container.service
+        owner: root
+        group: root
+        mode: "0644"
+      notify: Reload systemd
+
+    - name: Start and enable Gitea runner service
+      ansible.builtin.systemd:
+        name: gitea-runner-container
+        state: started
+        enabled: true
+
+  handlers:
+    - name: Reload systemd
+      ansible.builtin.systemd:
+        daemon_reload: true
+      changed_when: false

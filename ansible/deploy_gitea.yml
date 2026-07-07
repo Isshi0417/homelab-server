@@ -1,0 +1,69 @@
+---
+- name: Deploy Gitea Git Server via Podman
+  hosts: control
+  become: true
+
+  tasks:
+    - name: Create Gitea data directory
+      ansible.builtin.file:
+        path: /var/lib/gitea
+        state: directory
+        owner: root
+        group: root
+        mode: "0755"
+
+    - name: Allow Gitea ports in firewalld
+      ansible.posix.firewalld:
+        port: "{{ item }}"
+        permanent: true
+        immediate: true
+        state: enabled
+      loop:
+        - 3000/tcp
+        - 2222/tcp
+
+    - name: Run Gitea podman container
+      containers.podman.podman_container:
+        name: gitea
+        image: docker.io/gitea/gitea:latest
+        state: started
+        restart_policy: always
+        ports:
+          - "3000:3000"
+          - "2222:22"
+        volumes:
+          - /var/lib/gitea:/data:z
+      register: gitea_container
+
+    - name: Deploy Gitea Systemd service file
+      ansible.builtin.copy:
+        content: |
+          [Unit]
+          Description=Gitea Git Server Container
+          After=network-online.target
+
+          [Service]
+          Type=simple
+          ExecStart=/usr/bin/podman start -a gitea
+          ExecStop=/usr/bin/podman stop -t 10 gitea
+          Restart=always
+
+          [Install]
+          WantedBy=multi-user.target
+        dest: /etc/systemd/system/gitea-container.service
+        owner: root
+        group: root
+        mode: "0644"
+      notify: Reload systemd
+
+    - name: Start and enable Gitea service
+      ansible.builtin.systemd:
+        name: gitea-container
+        state: started
+        enabled: true
+
+  handlers:
+    - name: Reload systemd
+      ansible.builtin.systemd:
+        daemon_reload: true
+      changed_when: false
