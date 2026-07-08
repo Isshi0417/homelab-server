@@ -36,7 +36,7 @@
             status[name] = (res.returncode == 0)
 
           output_path = "/usr/share/nginx/html/status.json"
-          with open(output_path, "W") as f:
+          with open(output_path, "w") as f:
             json.dump(status, f)
         dest: /usr/share/nginx/html/ping_status.py
         owner: root
