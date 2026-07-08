@@ -1,0 +1,5 @@
+{
+    "ansible.validation.lint.autoFixOnSave": true,
+    "ansible.executionEnvironment.containerEngine": "podman",
+    "ansible.executionEnvironment.image": "registry.redhat.io/"
+}
