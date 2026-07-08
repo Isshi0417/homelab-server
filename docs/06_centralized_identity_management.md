@@ -32,7 +32,7 @@ graph TD
     %% Network relationships
     Control -- DNS Query & Auth --o IPA
     Web -- DNS Query & Auth --o IPA
-    Media -- DNS Query & Autho --o IPA
+    Media -- DNS Query & Auth --o IPA
 ```
 
 ---
