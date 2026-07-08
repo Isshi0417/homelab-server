@@ -1,0 +1,91 @@
+---
+- name: Deploy exporters to all nodes
+  hosts: ipa, control, web, media
+  become: true
+
+  tasks:
+    - name: Start node exporter container
+      containers.podman.podman_container:
+        name: node-exporter
+        image: docker.io/prom/node-exporter:latest
+        state: started
+        restart_policy: always
+        network: host
+        pid: host
+        volumes:
+          - /:/host:ro,rslave
+
+    - name: Allow node exporters in firewalld
+      ansible.posix.firewalld:
+        port: 9100/tcp
+        permanent: true
+        immediate: true
+        state: enabled
+
+- name: Deploy central prometheus & grafana
+  hosts: control
+  become: true
+
+  tasks:
+    - name: Create Prometheus storage directory
+      ansible.builtin.file:
+        path: /var/lib/prometheus
+        state: directory
+        owner: "65534"
+        group: "65534"
+        mode: "0755"
+
+    - name: Create Grafana storage directory
+      ansible.builtin.file:
+        path: /var/lib/grafana
+        state: directory
+        owner: "472"
+        group: "472"
+        mode: "0755"
+
+    - name: Copy prometheus config
+      ansible.builtin.copy:
+        src: prometheus.yml
+        dest: /var/lib/prometheus/prometheus.yml
+        owner: root
+        group: root
+        mode: "0644"
+
+    - name: Allow monitoring ports in firewalld
+      ansible.posix.firewalld:
+        port: "{{ item }}"
+        permanent: true
+        immediate: true
+        state: enabled
+      loop:
+        - 9091/tcp
+        - 3001/tcp
+
+    - name: Run prometheus container
+      containers.podman.podman_container:
+        name: prometheus
+        image: docker.io/prom/prometheus:latest
+        state: started
+        restart_policy: always
+        ports:
+          - "9091:9090"
+        volumes:
+          - /var/lib/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml:z
+        command:
+          - "--config.file=/etc/prometheus/prometheus.yml"
+          - "--storage.tsdb.path=/prometheus"
+
+    - name: Run grafana container
+      containers.podman.podman_container:
+        name: grafana
+        image: docker.io/grafana/grafana:latest
+        state: started
+        restart_policy: always
+        ports:
+          - "3001:3000"
+        volumes:
+          - /var/lib/grafana:/var/lib/grafana:z
+        env:
+          GF_SECURITY_ALLOW_EMBEDDING: "true"
+          GF_AUTH_ANONYMOUS_ENABLED: "true"
+          GF_AUTH_ANONYMOUS_ORG_ROLE: "Viewer"
