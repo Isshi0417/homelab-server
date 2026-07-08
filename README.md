@@ -64,4 +64,6 @@ To make this project easily readable, the documentation has been divided into de
 
 [Private Git Server and GitOps Automation](docs/07_private_git_server_and_gitops.md)
 
+[Monitoring and Observation Panel](docs/08_monitoring_and_observability.md)
+
 // Include links and their pages
