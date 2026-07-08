@@ -65,11 +65,20 @@
           
           <div class="card">
             <div class="card-header">
+              <span id="status-ipa" class="status-indicator online"></span>
+              <h3>freeipa</h3>
+            </div>
+            <p class="ip">172.30.1.100</p>
+            <p class="role">Identity & Local DNS</p>
+          </div>
+
+          <div class="card">
+            <div class="card-header">
               <span id="status-control" class="status-indicator online"></span>
               <h3>ansible-control</h3>
             </div>
             <p class="ip">172.30.1.200</p>
-            <p class="role">Automation AAP & Engine</p>
+            <p class="role">Automation Engine</p>
           </div>
 
           <div class="card">
@@ -87,7 +96,7 @@
               <h3>media-stream</h3>
             </div>
             <p class="ip">172.30.1.202</p>
-            <p class="role">Navidrome & Rclone FUSE</p>
+            <p class="role">Navidrome Music & FUSE</p>
           </div>
 
         </div>
@@ -106,6 +115,26 @@
             </div>
             <p class="desc">Personal audio streaming server synced with Google Drive.</p>
             <span class="action-btn">Launch Service →</span>
+          </a>
+
+          <!-- Gitea Link -->
+          <a href="http://172.30.1.200:3000" target="_blank" class="card link-card">
+            <div class="card-header">
+              <span class="status-indicator online"></span>
+              <h3>Gitea Git Server</h3>
+            </div>
+            <p class="desc">Private self-hosted Git repository and GitOps CI/CD engine.</p>
+            <span class="action-btn">Open Gitea →</span>
+          </a>
+
+          <!-- FreeIPA Link -->
+          <a href="https://ipa.shooey.local/ipa/ui" target="_blank" class="card link-card">
+            <div class="card-header">
+              <span class="status-indicator online"></span>
+              <h3>FreeIPA Directory</h3>
+            </div>
+            <p class="desc">Centralized Kerberos/LDAP accounts and local BIND DNS.</p>
+            <span class="action-btn">Open FreeIPA →</span>
           </a>
 
           <!-- VM Cockpit Link -->

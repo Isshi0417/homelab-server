@@ -119,6 +119,7 @@ function updateNodeStatuses() {
       return res.json();
     })
     .then(data => {
+      updateIndicator('status-ipa', data.ipa);
       updateIndicator('status-control', data.control);
       updateIndicator('status-web', data.web);
       updateIndicator('status-media', data.media);

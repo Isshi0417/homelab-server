@@ -40,4 +40,4 @@ jobs:
       - name: Execute DNS playbook
         run: |
           cd ansible
-          ansible-playbook configure_dns.yml -i inventory.ini --vault-password-file vault_pass
+          ansible-playbook deploy_monitor.yml -i inventory.ini --vault-password-file vault_pass
