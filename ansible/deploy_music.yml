@@ -56,10 +56,12 @@
           ExecStart=/usr/bin/rclone mount gdrive: /mnt/gdrive \
             --config /root/.config/rclone/rclone.conf \
             --allow-other \
+            --rc \
+            --rc-no-auth \
             --dir-cache-time 1000h \
             --vfs-cache-mode full \
             --vfs-cache-max-age 24h
-          ExecStop=/usr/bin/fusermount3 -u /mnt/gdrive
+          ExecStop=/usr/bin/fusermount3 -uz /mnt/gdrive
           Restart=on-failure
           User=root
 
