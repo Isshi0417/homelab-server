@@ -1,24 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Rapture Homelab Portal</title>
+  <meta name="description" content="Sho Ishida - Systems Engineer & Infrastructure Automation Portfolio">
+  <title>Sho Ishida | Systems Architect Dossier</title>
+  <!-- Google Fonts: Cinzel for Art Deco headings, Montserrat for clean sans-serif body -->
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=Montserrat:ital,wght@0,300;0,400;0,600;0,700;1,300&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
-  <!-- Importing Art Deco fonts (Cinzel and Montserrat) -->
-  <link
-    href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=Montserrat:wght@300;400;600&display=swap"
-    rel="stylesheet">
 </head>
-
 <body>
 
-  <!-- Ambient underwater bioluminescent glow blobs -->
-  <div class="glow-blob blob-cyan"></div>
-  <div class="glow-blob blob-gold"></div>
-
-  <!-- Floating bubble animations for underwater Rapture vibe -->
+  <!-- Thriving Underwater Metropolis Bubbles (Subtle background ambient only) -->
   <div class="bubbles">
     <div class="bubble"></div>
     <div class="bubble"></div>
@@ -27,184 +20,284 @@
     <div class="bubble"></div>
   </div>
 
-  <div class="container art-deco-frame">
+  <!-- Main Art Deco Luxury Console (Velvet & Brass Desk) -->
+  <div class="container art-deco-frame-pristine">
+    
+    <!-- Art Deco Corner Accents -->
+    <div class="corner-accent top-left"></div>
+    <div class="corner-accent top-right"></div>
+    <div class="corner-accent bottom-left"></div>
+    <div class="corner-accent bottom-right"></div>
+
+    <!-- Main Header (Gleaming Gold Leaf) -->
     <header class="main-header">
       <div class="deco-divider-top"></div>
-      <h1>Rapture</h1>
-      <p class="subtitle">Homelab Control Center</p>
+      <div class="sunburst-logo"></div>
+      <h1 id="portfolio-title">Sho Ishida</h1>
+      <p class="subtitle">Systems Engineer | Infrastructure & Automation Portfolio</p>
       <div class="deco-divider-bottom"></div>
     </header>
 
-    <main class="dashboard-grid">
-
-      <!-- Rapture Radio Player Widget -->
-      <section class="card-section radio-section">
-        <h2>Rapture Broadcast System</h2>
-        <div class="card radio-card">
-          <div class="radio-controls">
-            <!-- Vintage Toggle Switch -->
-            <button id="radio-toggle" class="radio-switch">OFF</button>
-            <div class="radio-info">
-              <span class="frequency">88.4 AM</span>
-              <p class="now-playing">TUNED: Rapture Jazz Network</p>
+    <!-- Two-Column Portfolio Grid -->
+    <div class="portfolio-grid">
+      
+      <!-- LEFT COLUMN: Profile, Skills, and Education -->
+      <aside class="sidebar-column">
+        
+        <!-- About Me / Dossier Summary -->
+        <section class="card-section">
+          <h2><span class="deco-wing"></span> Professional Summary <span class="deco-wing"></span></h2>
+          <div class="card profile-card dossier-folder">
+            <span class="brass-clip"></span>
+            <div class="card-header-dossier">
+              <span class="seal-stamp red-stamp">CERTIFIED</span>
+              <p class="role-title">Systems Administrator</p>
             </div>
-            <!-- Volume Dial/Slider -->
-            <div class="volume-container">
-              <label for="volume">VOL</label>
-              <input type="range" id="volume" min="0" max="1" step="0.1" value="0.5">
+            <p class="profile-text">
+              An experienced educator and academic mentor transitioning into Linux Systems Administration. Possessing a Red Hat Certified System Administrator (RHCSA) credential and combining years of structured problem-solving, guidance, and active communication skills from tutoring with hands-on systems deployment experience.
+            </p>
+            <!-- Custom Styled Download Resume Button -->
+            <a href="resume.pdf" download class="download-btn">
+              <span>Download Resume</span>
+            </a>
+          </div>
+        </section>
+
+        <!-- Core Skills -->
+        <section class="card-section">
+          <h2><span class="deco-wing"></span> Core Skills <span class="deco-wing"></span></h2>
+          <div class="card skills-card dossier-folder">
+            <span class="brass-clip"></span>
+            
+            <div class="skills-group">
+              <h3>Systems Automation</h3>
+              <div class="skill-tags">
+                <span class="tag">Ansible Engine</span>
+              </div>
+            </div>
+            
+            <div class="skills-group">
+              <h3>Virtualization & OS</h3>
+              <div class="skill-tags">
+                <span class="tag">RHEL 9 / 10</span>
+                <span class="tag">KVM / Libvirt</span>
+                <span class="tag">Podman / Docker</span>
+              </div>
+            </div>
+
+            <div class="skills-group">
+              <h3>Directory & Identity</h3>
+              <div class="skill-tags">
+                <span class="tag">FreeIPA Directory</span>
+                <span class="tag">Kerberos / LDAP</span>
+                <span class="tag">BIND DNS</span>
+              </div>
             </div>
           </div>
-          <!-- Hidden Audio Element (Hotlinking a public domain 1930s Jazz Track) -->
-          <audio id="radio-audio" crossorigin="anonymous" loop>
-            <source src="https://upload.wikimedia.org/wikipedia/commons/d/d1/Buddy_Bolden_Band_-_The_Humbug.ogg"
-              type="audio/ogg">
-            <source src="https://archive.org/download/classic_jazz_recordings/AlBowlly-MidnightTheStarsAndYou1934.mp3"
-              type="audio/mp3">
-          </audio>
+        </section>
+
+        <!-- Academic Credentials -->
+        <section class="card-section">
+          <h2><span class="deco-wing"></span> Education <span class="deco-wing"></span></h2>
+          <div class="card education-card dossier-folder">
+            <span class="brass-clip"></span>
+            <div class="edu-item">
+              <h3>A.S. Computer Science</h3>
+              <p class="edu-detail">University of the People</p>
+            </div>
+          </div>
+        </section>
+
+        <!-- Certifications -->
+        <section class="card-section">
+          <h2><span class="deco-wing"></span> Certifications <span class="deco-wing"></span></h2>
+          <div class="card certifications-card dossier-folder" style="display: flex; flex-direction: column; align-items: center; text-align: center;">
+            <span class="brass-clip"></span>
+            <div class="edu-item" style="width: 100%;">
+              <h3>RHCSA Certificate</h3>
+              <p class="edu-detail" style="margin-bottom: 12px;">Red Hat Certified System Administrator</p>
+              <!-- Credly Badge Embed Wrapper (Guarantees vertical space) -->
+              <div class="credly-badge-wrapper" style="min-height: 270px; width: 100%; display: flex; justify-content: center; align-items: center; margin-top: 8px;">
+                <div data-iframe-width="150" data-iframe-height="270" data-share-badge-id="ea1cfbb0-1d36-4090-b38d-f025088122b3" data-share-badge-host="https://www.credly.com"></div>
+              </div>
+              <script type="text/javascript" async src="//cdn.credly.com/assets/utilities/embed.js"></script>
+            </div>
+          </div>
+        </section>
+
+      </aside>
+
+      <!-- RIGHT COLUMN: Projects and Live Telemetry -->
+      <main class="main-column">
+        
+        <section class="card-section">
+          <h2><span class="deco-wing"></span> Featured Deployments <span class="deco-wing"></span></h2>
+          <div class="projects-list">
+            
+            <!-- Project 1 -->
+            <div class="card project-card dossier-folder">
+              <span class="brass-clip"></span>
+              <div class="project-header">
+                <h3>IaC Infrastructure Cluster</h3>
+                <span class="project-tag">Blueprint Schema</span>
+              </div>
+              <p class="project-desc">
+                Automated multi-node virtual machine deployments on a bare-metal RHEL 10 KVM Hypervisor. Built decoupled VM nodes utilizing custom network parameters, automated firewalld sockets, and active system configuration.
+              </p>
+              <a href="https://gitea.shooey.xyz/sho/homelab" target="_blank" class="project-link">Source Repositories →</a>
+            </div>
+
+          </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section class="card-section">
+          <h2><span class="deco-wing"></span> Contact Registry <span class="deco-wing"></span></h2>
+          <div class="card contact-card dossier-folder">
+            <span class="brass-clip"></span>
+            <div class="contact-links">
+              <a href="mailto:shooey623@gmail.com" class="contact-item">
+                <span class="label">EMAIL:</span> shooey623@gmail.com
+              </a>
+              <a href="https://gitea.shooey.xyz/sho" target="_blank" class="contact-item">
+                <span class="label">GITEA:</span> gitea.shooey.xyz/sho
+              </a>
+              <a href="https://github.com/Isshi0417" target="_blank" class="contact-item">
+                <span class="label">GITHUB:</span> github.com/Isshi0417
+              </a>
+              <a href="/dashboard/" target="_blank" class="contact-item">
+                <span class="label">DASHBOARD:</span> shooey.xyz/dashboard
+              </a>
+            </div>
+          </div>
+        </section>
+
+        <!-- System Specifications Section -->
+        <section class="card-section">
+          <h2><span class="deco-wing"></span> System Specifications <span class="deco-wing"></span></h2>
+          <div class="card specs-card dossier-folder">
+            <span class="brass-clip"></span>
+            <ul class="specs-list" style="list-style: none; font-size: 0.85rem; line-height: 2.2; color: var(--text-dark);">
+              <li style="display: flex; justify-content: space-between; border-bottom: 1px dashed rgba(45, 50, 48, 0.15); padding-bottom: 2px;">
+                <span style="font-family: 'Cinzel', serif; font-weight: 700; color: rgb(140, 60, 60);">HYPERVISOR:</span>
+                <span style="font-family: monospace; font-weight: 600;">KVM / Libvirt (RHEL 10)</span>
+              </li>
+              <li style="display: flex; justify-content: space-between; border-bottom: 1px dashed rgba(45, 50, 48, 0.15); padding-bottom: 2px; margin-top: 6px;">
+                <span style="font-family: 'Cinzel', serif; font-weight: 700; color: rgb(140, 60, 60);">DIRECTORY REALM:</span>
+                <span style="font-family: monospace; font-weight: 600;">FreeIPA (lab.local)</span>
+              </li>
+              <li style="display: flex; justify-content: space-between; border-bottom: 1px dashed rgba(45, 50, 48, 0.15); padding-bottom: 2px; margin-top: 6px;">
+                <span style="font-family: 'Cinzel', serif; font-weight: 700; color: rgb(140, 60, 60);">AUTOMATION:</span>
+                <span style="font-family: monospace; font-weight: 600;">Ansible Engine</span>
+              </li>
+              <li style="display: flex; justify-content: space-between; border-bottom: 1px dashed rgba(45, 50, 48, 0.15); padding-bottom: 2px; margin-top: 6px;">
+                <span style="font-family: 'Cinzel', serif; font-weight: 700; color: rgb(140, 60, 60);">CONTAINERS:</span>
+                <span style="font-family: monospace; font-weight: 600;">Podman (Rootless Namespace)</span>
+              </li>
+              <li style="display: flex; justify-content: space-between; padding-bottom: 2px; margin-top: 6px;">
+                <span style="font-family: 'Cinzel', serif; font-weight: 700; color: rgb(140, 60, 60);">ACTIVE VM NODES:</span>
+                <span id="active-vm-count" style="font-family: monospace; font-weight: 600;">4 Virtual Machines</span>
+              </li>
+            </ul>
+          </div>
+        </section>
+
+        <!-- Engineering Principles Section -->
+        <section class="card-section">
+          <h2><span class="deco-wing"></span> Engineering Principles <span class="deco-wing"></span></h2>
+          <div class="card principles-card dossier-folder">
+            <span class="brass-clip"></span>
+            <div class="principles-list" style="font-size: 0.85rem; line-height: 1.6; color: var(--text-dark);">
+              <div style="margin-bottom: 18px;">
+                <h4 style="font-family: 'Cinzel', serif; font-size: 0.92rem; font-weight: bold; color: rgb(140, 60, 60); margin-bottom: 4px;">Idempotency First</h4>
+                <p>Ensuring all systems automation scripts and playbooks are repeatable, safe to run repeatedly, and yield consistent states.</p>
+              </div>
+              <div style="margin-bottom: 18px;">
+                <h4 style="font-family: 'Cinzel', serif; font-size: 0.92rem; font-weight: bold; color: rgb(140, 60, 60); margin-bottom: 4px;">Defense in Depth</h4>
+                <p>Isolating services, hardening firewall interfaces, configuring secure DNS parameters, and leveraging rootless namespaces.</p>
+              </div>
+              <div>
+                <h4 style="font-family: 'Cinzel', serif; font-size: 0.92rem; font-weight: bold; color: rgb(140, 60, 60); margin-bottom: 4px;">Declarative Infrastructure</h4>
+                <p>Maintaining all environment blueprints, services, and configurations under version control as a single source of truth.</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Homelab Node Directory Section -->
+        <section class="card-section">
+          <h2><span class="deco-wing"></span> Node Directory <span class="deco-wing"></span></h2>
+          <div class="card directory-card dossier-folder">
+            <span class="brass-clip"></span>
+            <ul class="directory-list" style="list-style: none; font-size: 0.83rem; line-height: 1.8; color: var(--text-dark);">
+              <li style="border-bottom: 1px solid rgba(45, 50, 48, 0.1); padding-bottom: 8px; margin-bottom: 8px;">
+                <div style="display: flex; justify-content: space-between; font-weight: bold; font-family: monospace;">
+                  <span>freeipa.lab.local</span>
+                  <span style="color: rgb(140, 60, 60);">172.30.1.100</span>
+                </div>
+                <div style="font-size: 0.78rem; color: rgba(8, 14, 13, 0.7);">Identity Provider, LDAP Registry, Kerberos Realm</div>
+              </li>
+              <li style="border-bottom: 1px solid rgba(45, 50, 48, 0.1); padding-bottom: 8px; margin-bottom: 8px;">
+                <div style="display: flex; justify-content: space-between; font-weight: bold; font-family: monospace;">
+                  <span>ansible-control</span>
+                  <span style="color: rgb(140, 60, 60);">172.30.1.200</span>
+                </div>
+                <div style="font-size: 0.78rem; color: rgba(8, 14, 13, 0.7);">Automation Engine, Gitea Git Repository</div>
+              </li>
+              <li style="border-bottom: 1px solid rgba(45, 50, 48, 0.1); padding-bottom: 8px; margin-bottom: 8px;">
+                <div style="display: flex; justify-content: space-between; font-weight: bold; font-family: monospace;">
+                  <span>web-portfolio</span>
+                  <span style="color: rgb(140, 60, 60);">172.30.1.201</span>
+                </div>
+                <div style="font-size: 0.78rem; color: rgba(8, 14, 13, 0.7);">Nginx Web Server, Gitea Actions Runner VM</div>
+              </li>
+              <li>
+                <div style="display: flex; justify-content: space-between; font-weight: bold; font-family: monospace;">
+                  <span>media-stream</span>
+                  <span style="color: rgb(140, 60, 60);">172.30.1.202</span>
+                </div>
+                <div style="font-size: 0.78rem; color: rgba(8, 14, 13, 0.7);">Navidrome Music Server, Cloud storage FUSE mount</div>
+              </li>
+            </ul>
+          </div>
+        </section>
+
+      </main>
+
+    </div>
+
+    <!-- Lower Body Section: Technical Track Record (Dossier Sheet) -->
+    <section class="card-section experience-section">
+      <h2><span class="deco-wing"></span> Technical Track Record <span class="deco-wing"></span></h2>
+      <div class="card experience-card dossier-folder">
+        <span class="brass-clip"></span>
+        
+        <div class="xp-item">
+          <div class="xp-header" style="display: flex; justify-content: space-between; align-items: baseline; flex-wrap: wrap; margin-bottom: 8px; border-bottom: 1px solid rgba(45, 50, 48, 0.15); padding-bottom: 6px;">
+            <h3 style="font-family: 'Cinzel', serif; font-size: 1.05rem; font-weight: bold;">Homelab Infrastructure & Automation Deployment</h3>
+            <span class="xp-date" style="font-size: 0.8rem; font-weight: 600; font-family: 'Cinzel', serif; color: rgb(140, 60, 60);">ACTIVE LAB PROJECT</span>
+          </div>
+          <p class="xp-company" style="font-style: italic; font-size: 0.82rem; margin-bottom: 8px; color: rgba(8, 14, 13, 0.75);">Self-Hosted RHEL 9 / 10 Enterprise Cluster</p>
+          <ul class="xp-bullets" style="font-size: 0.86rem; line-height: 1.7; padding-left: 20px; list-style-type: square; color: var(--text-dark);">
+            <li>Implemented a bare-metal RHEL KVM Hypervisor using Libvirt utilities, provisioning isolated VM nodes with bridged network profiles.</li>
+            <li>Deployed a FreeIPA server (LDAP/Kerberos) to centralize single-sign-on authorizations, host configurations, and BIND DNS zones.</li>
+            <li>Established a private Gitea code registry and Gitea Actions Runner inside rootless Podman namespaces, resolving strict SELinux socket permissions.</li>
+            <li>Built shell automation scripts incorporating the Rclone RC API (`rclone rc vfs/refresh`) to refresh mounted Google Drive directories on a Navidrome container with zero unmount downtime.</li>
+            <li>Routed internal VM nodes through encrypted Cloudflare Zero Trust Tunnels to securely expose endpoints (Gitea, Grafana) without opening inbound ports.</li>
+          </ul>
         </div>
-      </section>
 
-      <!-- Card Section 1: Homelab Nodes -->
-      <section class="card-section">
-        <h2>System Nodes</h2>
-        <div class="grid">
+      </div>
+    </section>
 
-          <div class="card">
-            <div class="card-header">
-              <span id="status-ipa" class="status-indicator online"></span>
-              <h3>freeipa</h3>
-            </div>
-            <p class="ip">172.30.1.100</p>
-            <p class="role">Identity & Local DNS</p>
-          </div>
-
-          <div class="card">
-            <div class="card-header">
-              <span id="status-control" class="status-indicator online"></span>
-              <h3>ansible-control</h3>
-            </div>
-            <p class="ip">172.30.1.200</p>
-            <p class="role">Automation Engine</p>
-          </div>
-
-          <div class="card">
-            <div class="card-header">
-              <span id="status-web" class="status-indicator online"></span>
-              <h3>web-portfolio</h3>
-            </div>
-            <p class="ip">172.30.1.201</p>
-            <p class="role">Nginx Web Server Host</p>
-          </div>
-
-          <div class="card">
-            <div class="card-header">
-              <span id="status-media" class="status-indicator online"></span>
-              <h3>media-stream</h3>
-            </div>
-            <p class="ip">172.30.1.202</p>
-            <p class="role">Navidrome Music & FUSE</p>
-          </div>
-
-        </div>
-      </section>
-
-      <!-- Card Section: System Telemetry -->
-      <section class="card-section">
-        <h2>System Telemetry</h2>
-        <div class="telemetry-grid">
-
-          <div class="card telemetry-card">
-            <div class="card-header">
-              <span class="status-indicator online"></span>
-              <h3>CPU Utilization (All Nodes)</h3>
-            </div>
-            <!-- Note: Using secure https://grafana.shooey.xyz subdomain -->
-            <iframe
-              src="https://grafana.shooey.xyz/d-solo/rYdddlPWk/node-exporter-full?orgId=1&from=1783411995233&to=1783498395233&timezone=browser&var-ds_prometheus=cfrgo5x9dgrgge&var-job=homelab-nodes&var-nodename=media-stream.lab.local&var-node=172.30.1.202:9100&refresh=1m&theme=dark&panelId=panel-77"
-              class="telemetry-iframe" frameborder="0"></iframe>
-          </div>
-
-          <div class="card telemetry-card">
-            <div class="card-header">
-              <span class="status-indicator online"></span>
-              <h3>Memory Utilization (All Nodes)</h3>
-            </div>
-            <!-- Note: Using secure https://grafana.shooey.xyz subdomain -->
-            <iframe
-              src="https://grafana.shooey.xyz/d-solo/rYdddlPWk/node-exporter-full?orgId=1&from=now-5m&to=now&var-job=homelab-nodes&theme=dark&panelId=24"
-              class="telemetry-iframe" frameborder="0"></iframe>
-          </div>
-
-        </div>
-      </section>
-
-      <!-- Card Section 2: Services & Applications -->
-      <section class="card-section">
-        <h2>Applications & Services</h2>
-        <div class="grid">
-
-          <!-- Navidrome Link -->
-          <a href="https://music.shooey.xyz" target="_blank" class="card link-card">
-            <div class="card-header">
-              <span class="status-indicator online"></span>
-              <h3>Navidrome Music</h3>
-            </div>
-            <p class="desc">Personal audio streaming server synced with Google Drive.</p>
-            <span class="action-btn">Launch Service →</span>
-          </a>
-
-          <!-- Gitea Link -->
-          <a href="https://gitea.shooey.xyz/sho/homelab" target="_blank" class="card link-card">
-            <div class="card-header">
-              <span class="status-indicator online"></span>
-              <h3>Gitea Git Server</h3>
-            </div>
-            <p class="desc">Private self-hosted Git repository and GitOps CI/CD engine.</p>
-            <span class="action-btn">Open Gitea →</span>
-          </a>
-
-          <!-- FreeIPA Link -->
-          <a href="https://ipa.shooey.local/ipa/ui" target="_blank" class="card link-card">
-            <div class="card-header">
-              <span class="status-indicator online"></span>
-              <h3>FreeIPA Directory</h3>
-            </div>
-            <p class="desc">Centralized Kerberos/LDAP accounts and local BIND DNS.</p>
-            <span class="action-btn">Open FreeIPA →</span>
-          </a>
-
-          <!-- VM Cockpit Link -->
-          <a href="https://172.30.1.202:9090" target="_blank" class="card link-card">
-            <div class="card-header">
-              <span class="status-indicator online"></span>
-              <h3>Cockpit VM Admin</h3>
-            </div>
-            <p class="desc">RHEL VM management console for media nodes.</p>
-            <span class="action-btn">Manage Node →</span>
-          </a>
-
-          <!-- Hypervisor Link -->
-          <a href="https://172.30.1.10:9090" target="_blank" class="card link-card">
-            <div class="card-header">
-              <span class="status-indicator online"></span>
-              <h3>Hypervisor Host</h3>
-            </div>
-            <p class="desc">Bare-metal mini PC hypervisor panel (RHEL 10 / KVM).</p>
-            <span class="action-btn">Open Host →</span>
-          </a>
-
-        </div>
-      </section>
-
-    </main>
-
+    <!-- Footer Andrew Ryan Quote -->
     <footer class="main-footer">
-      <p class="ryan-quote">"A man chooses, a slave obeys."</p>
-      <p class="footer-sub">Sho Ishida | homelab-server cluster | Protected by Cloudflare</p>
+      <p class="ryan-quote">"We all make choices, but in the end our choices make us."</p>
+      <p class="footer-sub">Sho Ishida</p>
     </footer>
+
   </div>
 
   <script src="script.js"></script>
 </body>
-
 </html>

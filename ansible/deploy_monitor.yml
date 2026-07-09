@@ -35,6 +35,9 @@
             res = subprocess.run(["ping", "-c", "1", "-W", "1", ip], stdout=subprocess.DEVNULL)
             status[name] = (res.returncode == 0)
 
+          # Calculate total active VMs based on ping success
+          status["active_vms"] = sum(1 for online in status.values() if online)
+
           output_path = "/usr/share/nginx/html/status.json"
           with open(output_path, "w") as f:
             json.dump(status, f)
